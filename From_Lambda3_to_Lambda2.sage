@@ -434,11 +434,12 @@ for LL in L: #x,dOVERn,a,cOVERn,b,gamma,n,d1,d2,d3,d4,d5,d6,d7,d8,d9,Dd1d2,Dd1d3
                 Dx2x3 = 4*Nx2*Nx3 - Trx2x3^2
                 Dx1x2x3 = 4*Nx1*Nx2*Nx3 - Nx1*Trx2x3^2 - Nx2*Trx1x3^2 - Nx3*Trx1x2^2 - Trx1x2*Trx1x3*Trx2x3 # = (Trx1x2x3)^2
                 if Dx1x2x3.is_square() and Dx1x2x3/p in ZZ and Dx1x2/p in ZZ and Dx1x3/p in ZZ and Dx2x3/p in ZZ:
-                    print ('[x, dOVERn, a, cOVERn, b, gamma, n, x1, x2, x3] =', [x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
-                    csvwriter2.writerow([x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
-                    csvfile2.flush()
-                    OUTPUT.append([x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
-                    sys.stdout.flush()
+                    if Dx1x2 !=0 or Dx1x3 !=0 or Dx2x3!=0 or (Dx1x2 == 0 and Dx1x3 == 0 and Dx2x3 == 0 and n/p in ZZ):
+                        print ('[x, dOVERn, a, cOVERn, b, gamma, n, x1, x2, x3] =', [x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
+                        csvwriter2.writerow([x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
+                        csvfile2.flush()
+                        OUTPUT.append([x, dOVERn, a, cOVERn, b, gamma, n, QA(x1),QA(x2),QA(x3), Dx1x2, Dx1x3, Dx2x3, Dx1x2x3])
+                        sys.stdout.flush()
 print ("done")
 print (len(OUTPUT)," solutions found")
 print ("----------------------------------------------------------------------")
