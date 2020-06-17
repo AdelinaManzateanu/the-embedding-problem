@@ -95,52 +95,56 @@ print ("----------------------------------------------------------------------")
 sys.stdout.flush()
 
 
-# CMfielx1A13B50C49 with indices: 1 in K + , 7 in K (best A, best indices). bad: p7O1, p11O1, p11O2. potentially good: p19O1, p19O2.
 if CMfieldnumber == 1:
     A = 13; B = 50; C = 49
-# CMfielx3A5B6C1 with indices: 1 in K + , 1 in K (best A, best indices). bad: p3O1.
-if CMfieldnumber == 2:
+#2a
+elif CMfieldnumber == 2:
     A = 6; B = 9; C = 1
-# CMfielx3A5B6C1 with indices: 1 in K + , 1 in K (best indices). bad: p3O1.
-if CMfieldnumber == 22: 
+#2b
+elif CMfieldnumber == 22:
     A = 9; B = 6; C = 1
-# CMfielx3A5B6C1 with indices: 1 in K + , 1 in K (best A, best indices). potentially good: p7O1.
-if CMfieldnumber == 3:
+#3a
+elif CMfieldnumber == 3:
     A = 5; B = 6; C = 1 
-# CMfielx3A6B5C1 with indices: 1 in K + , 1 in K (best indices). potentially good: p7O1.
-if CMfieldnumber == 33:
+#3b
+elif CMfieldnumber == 33:
     A = 6; B = 5; C = 1 
-# CMfield4A7B14C7 with indices: 1 in K + , 8 in K (best A, best indices). potentially good: p7O1
-if CMfieldnumber == 4:
+elif CMfieldnumber == 4: 
     A = 7; B = 14; C = 7
-# CMfield5A42B441C847 with indices: 55 in K + , 266200 in K (best A). bad: p3O1, p5O1. potentially good: p7O1
-if CMfieldnumber == 5:
+#5a
+elif CMfieldnumber == 5:
     A = 42; B = 441; C = 847
-# CMfield55A63B126C63 with indices: 15 in K + , 5400 in K (best indices ?). bad: p3O1, p5O1. potentially good: p7O1
-if CMfieldnumber == 55:
+#5b
+elif CMfieldnumber == 55:
     A = 63; B = 126; C = 63
-# CMfield6A29B180C64 with indices: 44 in K + , 15488 in K (best A). bad: p11O1, p11O2. potentially good: p43O1, p43O2, p43O3.
-if CMfieldnumber == 6:
+#5c
+elif CMfieldnumber == 555:
+    A = 210; B = 2541; C = 4375
+#6a
+elif CMfieldnumber == 6:
     A = 29; B = 180; C = 64
-# CMfield66A30B257C484 with indices: 8 in K + , 1408 in K (best indices ?). bad: p11O1, p11O2. potentially good: p43O1, p43O2, p43O3.
-if CMfieldnumber == 66:
+#6b
+elif CMfieldnumber == 66:
     A = 30; B = 257; C = 484
-# CMfield666A37B356C1024 with indices: 4 in K + , 512 in K (best indices ?). bad: p11O1, p11O2. potentially good: p43O1, p43O2, p43O3.
-if CMfieldnumber == 666:
+#6c
+elif CMfieldnumber == 666:
     A = 37; B = 356; C = 1024
-# CMfield7A21B116C64 with indices: 4 in K + , 128 in K (best A, best indices ?). potentially good: p31O1, p31O2, p31O3.
-if CMfieldnumber == 7:
+elif CMfieldnumber == 7:
     A = 21; B = 116; C = 64
-# CMfield8A42B441C784 with indices: 56 in K + , 87808 in K (best A). bad: p3O1. potentially good: p7O1.
-if CMfieldnumber == 8:
+#8a
+elif CMfieldnumber == 8:
     A = 42; B = 441; C = 784
-# CMfield8A44B612C2304 with indices: 12 in K + , 6912 in K (best indices ?). bad: p3O1. potentially good: p7O1.
-if CMfieldnumber == 88:
+#8b
+elif CMfieldnumber == 88:
     A = 45; B = 612; C = 2304
-if CMfieldnumber == 9: #X9. bad red p=5. totally real field: x^3+x^2-4x+1. add \sqrt{-2} to get K.
+#X9
+elif CMfieldnumber == 9:
     A = 18; B = 56; C = 8 
-if CMfieldnumber == 10: #CM plane quartic curve X1 in https://arxiv.org/pdf/1701.06489.pdf (p 21). bad red p=5. totally real field: x^3+x^2-4x+1. Add \sqrt{-7} to get K.
+#CM plane quartic curve X1 in https://arxiv.org/pdf/1701.06489.pdf (p 21)
+elif CMfieldnumber == 10:
     A = 63; B = 686; C = 343 
+else:
+    print ("unknown CM field number")
 
 
 basis = M.transpose().inverse()
