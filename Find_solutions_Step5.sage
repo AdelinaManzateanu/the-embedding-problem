@@ -466,10 +466,10 @@ def find_elem_with_norm_and_trace_zero(p,O,NN):
 	elif set(O) == set([ QA(1), QA(1/2 + 1/2*i + 1/2*j + 1/2*k), QA(1/2 + 1/2*i - 1/2*j + 1/2*k), QA(1/2 - 1/2*i + 1/2*j + 1/2*k) ]): #p2. x = QA(u*O[0]+ v*O[1]+w*O[2]+ t*O[3]). Put t = - 2*u -v -w. Nx = 3*u^2 + 2*u*v + v^2 + 4*u*w + 2*v*w + 2*w^2.
 		newbdw = sqrt(2)
 		for u in [ceil(-sqN)..floor(sqN)]: #Delta_wv = (-128)*u^2 + 128*N >= 0 =>  N > u^2. #newbdu = 1
-			D1 = (N - 2*u^2)
+			D1 = (NN - 2*u^2)
 			for w in [ceil(-newbdw*sqN)..floor(newbdw*sqN)]: # Delta_vu = (-64)*w^2 + 128*N >= 0 => 2*N > w^2
 				Delta_v_over_4 = D1 - 2*u*w - w^2  #norm_eq = v^2 + 2*(u + 2*w + w)*v + 3*u^2 + 2*w^2 - NN
-				if Delta_v >= 0: 
+				if Delta_v_over_4 >= 0: 
 					v1 = - (u + 2*w + w) + sqrt(Delta_v_over_4)
 					v2 = - (u + 2*w + w) - sqrt(Delta_v_over_4)
 					if v1 in ZZ: #x = (u + v + w)*i + (-u - w)*j + (-u)*k
