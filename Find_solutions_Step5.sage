@@ -1,6 +1,6 @@
 # run as sage ./Find_solutions_Step5.sage p max_order CMfieldnumber
 # e.g. sage ./Find_solutions_Step5.sage 3 1 0 0 0 0 1 0 0 0 1/2 0 1/2 1/2 0 1/2 0 2 runs p=3, O=1 with basis [1, i, i/2 + k/2, 1/2 + j/2], for CM field 2.
-#-------------------------------------------------------------------------------------------------------------------------------------------
+################################################################################
 #Read solutions from Step 4
 #Solutions have the form: x, dOVERn, a, cOVERn, b, gamma, n, Nd1, Nd2, Nd3, Trd1d2, Trd1d3, Trd2d3, Dd1d2, Dd1d3, Dd2d3, Dd1d2d3
 #Save all norms and find all x_i in O with Tr = 0 and those norms to create CMfield1p7MaxOrderBasis_1_+i_+frac{1}{2}i+frac{1}{2}k_frac{1}{2}+frac{1}{2}j_d
@@ -14,12 +14,12 @@
 # #CC;
 # Generators(CC[1]);
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
+################################################################################
 from sage.all_cmdline import *   # import sage library
 from time import time
 from random import randint
 import csv
-#---------------------------------
+################################################################################
 filelocation = "./"
 p = sage_eval(sys.argv[1])
 
@@ -84,13 +84,9 @@ for row in reader:
 	if Nd3 not in all_norms:
 		all_norms += [Nd3]
 
-
 print ("len(all_norms) = ", len(all_norms))
 all_norms.sort()
 print ("max norm = ", all_norms[len(all_norms)-1])
-#print (all_norms)
-
-#Determine basic bounds for u,v,w,t where x = QA(O[0]*u + O[1]*v + O[2]*w + O[3]*t). These are improved for several cases considered in the function find_elem_with_norm_and_trace_zero.
 
 B2 = M.determinant()
 
@@ -115,9 +111,8 @@ bdt = sqrt(abs(B4_uvw/p))/abs(B2)
 sys.stdout.flush()
 
 
-#Function that finds all elements in a given maximal order O in QA with a certain norm NN and trace 0
 @parallel
-def find_elem_with_norm_and_trace_zero(p,O,NN): 
+def find_elem_with_norm_and_trace_zero(p,O,NN):
 	sqN = sqrt(NN)
 	res = []
 	P = p^2
@@ -451,7 +446,7 @@ def find_elem_with_norm_and_trace_zero(p,O,NN):
 						res += [QA([0, v1/10 , w, 5*t + 9*v1/10])] #sols.append([u, v, w, t]) #u=0
 					if v2 in ZZ: #x = 1/10*v*i + w*j + (5*t + 9/10*v)*k
 						res += [QA([0, v2/10 , w, 5*t + 9*v2/10])] #sols.append([u, v, w, t]) #u=0
-	elif set(O) == set([QA(1/2 + 1/2*j + k), QA(1/6*i + 2/3*j + 13/6*k), QA(j + 2*k), QA(3*k)]): #p79 O6. x = QA(u*O[0]+ v*O[1]+w*O[2]+ t*O[3]). Trx = u. Put u = 0. Nx = (16505*p+1)/484*v^2 + 128*p*v*w + p*v*t + 121*p*w^2 + p*t^2 
+	elif set(O) == set([QA(1/2 + 11/2*j), QA(1/22*i + 64/11*j + 1/2*k), QA(11*j), QA(k)]): #p79 O6. x = QA(u*O[0]+ v*O[1]+w*O[2]+ t*O[3]). Trx = u. Put u = 0. Nx = (16505*p+1)/484*v^2 + 128*p*v*w + p*v*t + 121*p*w^2 + p*t^2 
 		pp1 = (16384*p+1)*p/121
 		pp2 = (16505*p+1)/121*NN
 		pp3 = (121*p+1)*p
@@ -468,7 +463,7 @@ def find_elem_with_norm_and_trace_zero(p,O,NN):
 						res += [QA([0, v1/22 , 64/11*v1 + 11*w, t + v1/2 ])] #sols.append([u, v, w, t]) #u=0
 					if v2 in ZZ: #x = 1/22*v*i + (64/11*v + 11*w)*j + (t + 1/2*v)*k
 						res += [QA([0, v2/22 , 64/11*v2 + 11*w, t + v2/2 ])] #sols.append([u, v, w, t]) #u=0
-	elif set(O) == set([QA(1/2 + 1/2*j + k), QA(1/6*i + 2/3*j + 13/6*k), QA(j + 2*k), QA(3*k)]): #p2. x = QA(u*O[0]+ v*O[1]+w*O[2]+ t*O[3]). Put t = - 2*u -v -w. Nx = 3*u^2 + 2*u*v + v^2 + 4*u*w + 2*v*w + 2*w^2.
+	elif set(O) == set([ QA(1), QA(1/2 + 1/2*i + 1/2*j + 1/2*k), QA(1/2 + 1/2*i - 1/2*j + 1/2*k), QA(1/2 - 1/2*i + 1/2*j + 1/2*k) ]): #p2. x = QA(u*O[0]+ v*O[1]+w*O[2]+ t*O[3]). Put t = - 2*u -v -w. Nx = 3*u^2 + 2*u*v + v^2 + 4*u*w + 2*v*w + 2*w^2.
 		newbdw = sqrt(2)
 		for u in [ceil(-sqN)..floor(sqN)]: #Delta_wv = (-128)*u^2 + 128*N >= 0 =>  N > u^2. #newbdu = 1
 			D1 = (N - 2*u^2)
@@ -493,7 +488,6 @@ def find_elem_with_norm_and_trace_zero(p,O,NN):
 	return list(set(res))
 
 
-#Function that finds all elements in a maximal order O in QA given a list of norms
 @parallel
 def find_all_x_i(p, O, norms):
 	all_x_i = {}
@@ -565,14 +559,5 @@ L=0
 for NN in all:
 	L = L + len(all[NN])
 print ("L=", L)
-
-
-
-
-
-
-
-
-
 
 
