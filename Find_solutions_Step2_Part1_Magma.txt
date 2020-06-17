@@ -19,6 +19,7 @@ Basis(OK, NumberField(OK)); // this gives the N to use in the second part
 # CMfieldnumber = 4 => N := U^2 OR N := U^2 
 # CMfieldnumber = 5 => N := 1/55*(U^2 + 45*U + 11) 
 # CMfieldnumber = 55 => N := 1/15*(U^2 + 6) 
+# CMfieldnumber = 555 => N := 1/4983*(U^2 + 2185*U + 3466) 
 # CMfieldnumber = 6 => N :=  1/44*(U^2 + 7*U + 36) 
 # CMfieldnumber = 66 => N := 1/8*(U^2 - 5*U - 4) 
 # CMfieldnumber = 666 => N := 1/4*(U^2 - U) 
