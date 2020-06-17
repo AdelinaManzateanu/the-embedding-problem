@@ -53,6 +53,9 @@ elif CMfieldnumber == 5:
 #5b
 elif CMfieldnumber == 55:
     A = 63; B = 126; C = 63
+#5c
+elif CMfieldnumber == 555:
+    A = 210; B = 2541; C = 4375
 #6a
 elif CMfieldnumber == 6:
     A = 29; B = 180; C = 64
