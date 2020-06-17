@@ -1,5 +1,5 @@
-# run as sage ./Find_solutions_Step3.sage CMfieldnumber 
-# e.g. sage ./Find_solutions_Step3.sage 1 runs Step 2 Part 2 for CM field 1.
+# run as sage ./Find_solutions_Step2_Part2.sage CMfieldnumber 
+# e.g. sage ./Find_solutions_Step2_Part2.sage 1 runs Step 2 Part 2 for CM field 1.
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # Step 2 (Part 2): Find out which primes divide n for [x, dOVERn, a, cOVERn, b, gamma, n] that lift.
 #-------------------------------------------------------------------------------------------------------------------------------------------
