@@ -1,0 +1,70 @@
+Authors: Sorina Ionica, Pınar Kılıçer, Kristin Lauter, Elisa Lorenzo Garcia, Adelina Mânzățeanu and Christelle Vincent.
+
+This explains how to run the algorithm in "DETERMINING THE PRIMES OF BAD REDUCTION OF CM CURVES OF GENUS 3" for a CM field that is on the list CM_Fields.sage. To add a new CM field see the file "How to add a new CM field"
+
+For more details on each Step, read the explanation at the start and end of each individual file.
+
+
+1. This corresponds to Step 2 in Algorithm 1 in the paper. 
+	sage ./Find_solutions_Step1.sage CMfilednumber
+	e.g. sage ./Find_solutions_Step1.sage 26666
+2. This corresponds to Step 3 in Algorithm 1 in the paper.
+	sage ./Find_solutions_Step2.sage CMfieldnumber
+	e.g. sage ./Find_solutions_Step2.sage 26666
+
+
+If the CM field contains an imaginary quadratic subfield:
+
+3. This step implements the arguments of Section 3.4.1 and Section 5.3. It creates files containing solutions [x, dOVERn, a, cOVERn, b, gamma, n] from Step 2 above for each prime up to the maximum bound for the primes p, called max_bdp, or another specified Bound. 
+	First find max_bdp. If this is too large, you may not wish to create all the files and instead you may choose to create files only up to a certain specified Bound.
+	sage ./Find_solutions_Step3JustBdp.sage CMfieldnumber 
+	e.g. sage ./Find_solutions_Step3JustBdp.sage 26666
+	sage ./Find_solutions_Step3ALLp2Bounded.sage CMfieldnumber Bound
+	e.g. sage ./Find_solutions_Step3ALLp2Bounded.sage 26666 1000
+4. This corresponds to Step 4 in Algorithm 1 in the paper. It runs for all primes between the specified bounds min_bdp and max_bdp.
+	sage ./Find_solutions_Step4ALLp4.sage CMfieldnumber min_bdp max_bdp
+	e.g. sage ./Find_solutions_Step4ALLp4.sage 26666 2 1000
+	This will only find solutions for a few primes.
+5. This corresponds to Step 5 in Algorithm 1 in the paper. For a certain prime for which there are solutions in Step 4, create a list of all norms Nd1, Nd2, Nd3 and find all elements with those norms and trace 0 in the maximal orders in the quaternion algebra corresponding for that prime. If p = 1 mod 8, then q should be a prime = 3 mod 4 and not a square mod p. Ensure the bases for such p and q are in the Table BasesForPrimesTable.csv.
+	sage ./Find_solutions_Step5Table.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step5Table.sage 26666 7 or e.g. sage ./Find_solutions_Step5Table.sage 26666 17 3
+6. This corresponds to Step 6 in Algorithm 1 in the paper. For a certain prime for which there are solutions in Step 4, use the list of di's from Step 5, and check which di's have also the corresponding Tr(d1d2), Tr(d1d3), Tr(d2d3).
+	sage ./Find_solutions_Step6Table.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step6Table.sage 26666 7 or e.g. sage ./Find_solutions_Step6Table.sage 26666 17 3
+7. This step performs a check before Step 7 of Algorithm 1 in the paper.
+	sage ./Find_solutions_Step7Table.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step7Table.sage 26666 7 or e.g. sage ./Find_solutions_Step7Table.sage 26666 17 3
+8. This step implements Step 7 of Algorithm 1 in the paper. 
+		sage ./Find_solutions_Step8v2Table.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step8v2Table.sage 26666 7 or e.g. sage ./Find_solutions_Step8v2Table.sage 26666 17 3
+9. This step implements Step 8 of Algorithm 1 in the paper. 
+		sage ./Find_solutions_Step93v2Table.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step93v2Table.sage 26666 7 or e.g. sage ./Find_solutions_Step93v2Table.sage 26666 17 3
+10. Step 9 of Algorithm 1 in the paper is checked individually for each case. 
+
+
+If the CM field does NOT contain an imaginary quadratic subfield:
+
+3. This step implements Section 5.3. It creates files containing solutions [x, dOVERn, a, cOVERn, b, gamma, n] from Step 2 above for each prime up to the maximum bound for the primes p, called max_bdp, or another specified Bound. 
+	First find max_bdp. If this is too large, you may not wish to create all the files and instead you may choose to create files only up to a certain specified Bound.
+	sage ./Find_solutions_Step3xJustBdp.sage CMfieldnumber 
+	e.g. sage ./Find_solutions_Step3xJustBdp.sage 34
+	sage ./Find_solutions_Step3xALLp2Bounded.sage CMfieldnumber Bound
+	e.g. sage ./Find_solutions_Step3xALLp2Bounded.sage 34 1000
+4. This corresponds to Step 4 in Algorithm 1 in the paper. It runs for all primes between the specified bounds min_bdp and max_bdp.
+	sage ./Find_solutions_Step4xALLp4.sage CMfieldnumber min_bdp max_bdp
+	e.g. sage ./Find_solutions_Step4xALLp4.sage 34 2 1000
+	This will only find solutions for a few primes.
+5. This corresponds to Step 5 in Algorithm 1 in the paper. For a certain prime for which there are solutions in Step 4, create a list of all norms Nx1, Nx2, Nx3 and find all elements with those norms and trace 0 in the maximal orders in the quaternion algebra corresponding for that prime. If p = 1 mod 8, then q should be a prime = 3 mod 4 and not a square mod p. Ensure the bases for such p and q are in the Table BasesForPrimesTable.csv.
+	sage ./Find_solutions_Step5xTable.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step5xTable.sage 34 3 or e.g. sage ./Find_solutions_Step5xTable.sage 34 17 3
+6. This corresponds to Step 6 in Algorithm 1 in the paper. For a certain prime for which there are solutions in Step 4, use the list of di's from Step 5, and check which xi's have also the corresponding Tr(x1x2), Tr(x1x3), Tr(x2x3).
+	sage ./Find_solutions_Step6xTable.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step6xTable.sage 34 3 or e.g. sage ./Find_solutions_Step6Table.sage 34 17 3
+7. This step implements Step 7 of Algorithm 1 in the paper. 
+		sage ./Find_solutions_Step7xTable.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step7xTable.sage 34 3 or e.g. sage ./Find_solutions_Step8v2Table.sage 34 17 3
+8. This step implements Step 8 of Algorithm 1 in the paper. 
+		sage ./Find_solutions_Step8xTable.sage CMfieldnumber p (q)
+	e.g. sage ./Find_solutions_Step8xTable.sage 34 3 or e.g. sage ./Find_solutions_Step8xTable.sage 34 17 3
+9. Step 9 of Algorithm 1 in the paper is checked individually for each case.
