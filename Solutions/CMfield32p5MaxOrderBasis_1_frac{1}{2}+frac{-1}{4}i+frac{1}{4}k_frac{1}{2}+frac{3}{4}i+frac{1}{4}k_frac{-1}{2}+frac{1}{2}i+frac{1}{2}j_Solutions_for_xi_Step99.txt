@@ -1,0 +1,88 @@
+sets of equivalent solutions: 
+C1: [[2, 13, 19, -7, 236, 2935, 69, 0, (-5/2)*i + (-2)*j + 1/2*k, (-31)*i + (-25)*j + 6*k, (-43/138)*i + 10/23*j + 103/138*k, 12/23*i + (-13/23)*j + (-25/23)*k, 619/138*i + (-229/23)*j + (-1993/138)*k, 1/69*i + (-1/23)*j + (-4/69)*k, (-7/46)*i + (-1/23)*j + 5/46*k, (-239/138)*i + (-7/23)*j + 197/138*k], [2, 13, 19, -7, 236, 2935, 69, 0, (-5/2)*i + 2*j + 1/2*k, (-31)*i + 25*j + 6*k, (-43/138)*i + (-10/23)*j + 103/138*k, 12/23*i + 13/23*j + (-25/23)*k, 619/138*i + 229/23*j + (-1993/138)*k, 1/69*i + 1/23*j + (-4/69)*k, (-7/46)*i + 1/23*j + 5/46*k, (-239/138)*i + 7/23*j + 197/138*k], [2, 13, 19, -7, 236, 2935, 69, 0, 5/2*i + (-2)*j + (-1/2)*k, 31*i + (-25)*j + (-6)*k, 43/138*i + 10/23*j + (-103/138)*k, (-12/23)*i + (-13/23)*j + 25/23*k, (-619/138)*i + (-229/23)*j + 1993/138*k, (-1/69)*i + (-1/23)*j + 4/69*k, 7/46*i + (-1/23)*j + (-5/46)*k, 239/138*i + (-7/23)*j + (-197/138)*k], [2, 13, 19, -7, 236, 2935, 69, 0, 5/2*i + 2*j + (-1/2)*k, 31*i + 25*j + (-6)*k, 43/138*i + (-10/23)*j + (-103/138)*k, (-12/23)*i + 13/23*j + 25/23*k, (-619/138)*i + 229/23*j + 1993/138*k, (-1/69)*i + 1/23*j + 4/69*k, 7/46*i + 1/23*j + (-5/46)*k, 239/138*i + 7/23*j + (-197/138)*k]],
+C2: [[2, 13, 19, -7, 236, 2935, 69, 0, (-5/2)*i + (-3/2)*k, (-63/2)*i + (-37/2)*k, 193/138*i + (-73/138)*k, (-89/46)*i + 37/46*k, (-2027/69)*i + 653/69*k, (-17/138)*i + 5/138*k, 1/23*i + (-3/23)*k, 67/69*i + (-109/69)*k], [2, 13, 19, -7, 236, 2935, 69, 0, 5/2*i + 3/2*k, 63/2*i + 37/2*k, (-193/138)*i + 73/138*k, 89/46*i + (-37/46)*k, 2027/69*i + (-653/69)*k, 17/138*i + (-5/138)*k, (-1/23)*i + 3/23*k, (-67/69)*i + 109/69*k]]
+
+SAGE:
+p = 5 #modify accordingly
+if p == 2:
+	QA = QuaternionAlgebra(SR, -1,-1, names=('i', 'j', 'k',) ); (i, j, k,) = QA._first_ngens(3)
+else:
+	S = Integers(8)
+	if S(p) == 3 or S(p) == 7:
+		q = 1
+		QA = QuaternionAlgebra(SR, -q,-p, names=('i', 'j', 'k',) ); (i, j, k,) = QA._first_ngens(3)
+	elif S(p) == 5:
+		q = 2
+		QA = QuaternionAlgebra(SR, -q,-p, names=('i', 'j', 'k',) ); (i, j, k,) = QA._first_ngens(3)
+	elif S(p) == 1:
+		q = 19 #modify this accordingly
+		print ("Choose a prime l = 3 mod 4 and l a square mod p. Choose QA(-l,-p).") #QA = QuaternionAlgebra(SR, -1,-l, names=('i', 'j', 'k',) ); (i, j, k,) = QA._first_ngens(3)
+
+
+Mlist = [1, 0, 0, 0, 1/2, -1/4, 0, 1/4, 1/2, 3/4, 0, 1/4, -1/2, 1/2, 1/2, 0] #modify accordingly
+M = matrix(QQ,4,Mlist)
+O = [ QA(M[0][0]+M[0][1]*i+M[0][2]*j+M[0][3]*k), QA(M[1][0]+M[1][1]*i+M[1][2]*j+M[1][3]*k), QA(M[2][0]+M[2][1]*i+M[2][2]*j+M[2][3]*k), QA(M[3][0]+M[3][1]*i+M[3][2]*j+M[3][3]*k)]
+
+B2 = M.determinant()
+
+C = []
+for m in [0..3]:
+	for n in [0..3]:
+		C += [M.delete_rows([m]).delete_columns([n]).determinant()]
+C = matrix(4,C) #= [[C0_wtv, C1_wtv, C2_wtv, C3_wtv], [C0_wtu, C1_wtu, C2_wtu, C3_wtu], [C0_uvt, C1_uvt, C2_uvt, C3_uvt], [C0_uvw, C1_uvw, C2_uvw, C3_uvw]]
+
+# Ci_uvw = det of minor obtained by deleting row 3 (for t) anc column i = C[]
+
+B4_uvw = (q*C[3][0]^2 + C[3][1]^2)*p + (q*C[3][2]^2 + C[3][3]^2) #(q*C0_uvw^2 + C1_uvw^2)*p + (q*C2_uvw^2 + C3_uvw^2)
+B4_uvt = (q*C[2][0]^2 + C[2][1]^2)*p + (q*C[2][2]^2 + C[2][3]^2) #(q*C0_uvt^2 + C1_uvt^2)*p + (q*C2_uvt^2 + C3_uvt^2)
+B4_wtu = (q*C[1][0]^2 + C[1][1]^2)*p + (q*C[1][2]^2 + C[1][3]^2) #(q*C0_wtu^2 + C1_wtu^2)*p + (q*C2_wtu^2 + C3_wtu^2)
+B4_wtv = (q*C[0][0]^2 + C[0][1]^2)*p + (q*C[0][2]^2 + C[0][3]^2) #(q*C0_wtv^2 + C1_wtv^2)*p + (q*C2_wtv^2 + C3_wtv^2)
+
+bdu = sqrt(abs(B4_wtv)/(q*p))/abs(B2)
+bdv = sqrt(abs(B4_wtu)/(q*p))/abs(B2)
+bdw = sqrt(abs(B4_uvt)/(q*p))/abs(B2)
+bdt = sqrt(abs(B4_uvw)/(q*p))/abs(B2)
+
+@parallel
+def find_elem_with_norm2(p,O,NN): # Much faster with large norms.
+	sqN = sqrt(NN)
+	res = []
+	tt = var('tt')
+	for u in [ceil(-bdu*sqN)..floor(bdu*sqN)]:
+		for v in [ceil(-bdv*sqN)..floor(bdv*sqN)]:
+			for w in [ceil(-bdw*sqN)..floor(bdw*sqN)]:
+				x = QA(u*O[0] + v*O[1] + w*O[2] + tt*O[3])
+				Nx = QA(x).reduced_norm()
+				norm_eq = Nx - NN
+				t=norm_eq.solve(tt)
+				for l in [0..len(t)-1]:
+					if t[l].rhs() in ZZ: # should instead solve norm eq for t. And same for Tr 0.
+						elem = QA(u*O[0] + v*O[1] + w*O[2] + t[l].rhs()*O[3])
+						if elem.reduced_norm() == NN:
+							res += [QA(elem)]
+	return list(set(res))
+
+res1 = find_elem_with_norm2(p,O,1)
+res1
+#[1, -1/2 + (-1/4)*i + 1/4*k, -1/2 + 1/4*i + (-1/4)*k, 1/2 + (-1/4)*i + 1/4*k, 1/2 + 1/4*i + (-1/4)*k, -1]
+
+
+Summary:
+C1: S1: [2, 13, 19, -7, 236, 2935, 69, 0, (-5/2)*i + (-2)*j + 1/2*k, (-31)*i + (-25)*j + 6*k, (-43/138)*i + 10/23*j + 103/138*k, 12/23*i + (-13/23)*j + (-25/23)*k, 619/138*i + (-229/23)*j + (-1993/138)*k, 1/69*i + (-1/23)*j + (-4/69)*k, (-7/46)*i + (-1/23)*j + 5/46*k, (-239/138)*i + (-7/23)*j + 197/138*k]
+[Nx1,Nx2,Nx3] = [0, 35, 5407]
+
+sage: for x in res1:
+....:     [QA(x*x1*(x.conjugate())), QA(x*x2*(x.conjugate())), QA(x*x3*(x.conjugate()))]
+....:     
+[0, (-5/2)*i + (-2)*j + 1/2*k, (-31)*i + (-25)*j + 6*k]
+[0, (-5/2)*i + 2*j + 1/2*k, (-31)*i + 25*j + 6*k]
+[0, 5/2*i + 3/2*k, 63/2*i + 37/2*k]
+
+
+C2: S2: [2, 13, 19, -7, 236, 2935, 69, 0, 5/2*i + 3/2*k, 63/2*i + 37/2*k, (-193/138)*i + 73/138*k, 89/46*i + (-37/46)*k, 2027/69*i + (-653/69)*k, 17/138*i + (-5/138)*k, (-1/23)*i + 3/23*k, (-67/69)*i + 109/69*k]
+[Nx12,Nx22,Nx32] = [0, 35, 5407]
+
+Thus, 1 class.
+
+
+
